@@ -1,4 +1,4 @@
-module.exports = function search(arr,elem
+function searchB(arr,elem
 				, start /*optional start position*/
 				, end /*optional end position*/){
 	var index = -1;
@@ -10,11 +10,36 @@ module.exports = function search(arr,elem
 	}else if(length > 1){
 		var half = Math.round(length / 2),
 			middle = start+half;
-		if(elem < arr[middle]){
-			index = search(arr,elem,start,middle);
+		if(arr[middle] === elem){
+			return middle;
+		}else if(elem < arr[middle]){
+			index = searchB(arr,elem,start,middle);
 		}else{
-			index = search(arr,elem,middle,end);
+			index = searchB(arr,elem,middle,end);
 		}
 	}
 	return index;
 }
+function search(arr, ele) {
+  var len = arr.length;
+  if (len === 0) {
+    return -1;
+  }
+
+  function _search(startIdx, endIdx) {
+    if (startIdx === endIdx && arr[startIdx] !== ele) {
+      return -1;
+    }
+    var middleIdx = startIdx + Math.floor((endIdx - startIdx) / 2);
+    if (arr[middleIdx] > ele) {
+      return _search(startIdx, middleIdx);
+    } else if (arr[middleIdx] < ele) {
+      return _search(middleIdx + 1, endIdx);
+    } else {
+      return middleIdx;
+    }
+  }
+
+  return _search(0, len);
+}
+module.exports= searchB;
