@@ -10,10 +10,10 @@ module.exports = function search(arr,elem
 	}else if(length > 1){
 		var half = Math.round(length / 2),
 			middle = start+half;
-		if(elem < arr[middle]){
-			index = search(arr,elem,start,middle);
-		}else{
+		if(elem >= arr[middle]){
 			index = search(arr,elem,middle,end);
+		}else{
+			index = search(arr,elem,start,middle);
 		}
 	}
 	return index;
