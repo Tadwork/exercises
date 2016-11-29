@@ -5,6 +5,7 @@ var _toArray = function (arr) {
 var _spread =  function (context, command,val){
 	context[command].apply(context,_toArray(val));
 }
+var hasOwnProperty = {}.hasOwnProperty;
 module.exports = function update(state,commands){
 	var newState = {};
 	if(Array.isArray(state)){
@@ -19,29 +20,31 @@ module.exports = function update(state,commands){
 			_spread(newState,'splice',commands['$splice'][0])
 		}
 	}else{
-		var stateProps = Object.getOwnPropertyNames(state);
-		for(var s = 0; s< stateProps.length; ++s){
-			var prop = stateProps[s]
-			if(commands[prop] === undefined){
+		for(var prop in state){
+			if(hasOwnProperty.call(state,prop)){
 				newState[prop] = state[prop];
+			}
+		}
+		for(var prop in commands){
+			if(prop === '$set'){
+				newState = commands['$set'];
+			}else 
+			if(prop === '$merge'){
+				var merge = commands['$merge'];
+				for(var mergeProp in merge){
+					if(hasOwnProperty.call(merge,mergeProp)){
+						newState[mergeProp] = merge[mergeProp]
+					}
+				}	
+			}else 
+			if(prop === '$apply'){
+				newState = commands['$apply'].apply(newState,[state]);
 			}else{
-				newState[prop] = update(state[prop],commands[prop])
+				if(hasOwnProperty.call(commands,prop)){
+					newState[prop] = update(state[prop],commands[prop])
+				}
 			}
 		}	
-		if(commands['$set']){
-			newState = commands['$set'];
-		}
-		if(commands['$merge']){
-			var merge = commands['$merge'];
-			var mergeProps = Object.getOwnPropertyNames(merge);
-			for(var s = 0; s< mergeProps.length; ++s){
-				var prop = mergeProps[s];
-				newState[prop] = merge[prop]
-			}	
-		}
-		if(commands['$apply']){
-			newState = commands['$apply'].apply(newState,[state]);
-		}
 	}
 	return newState;
 }
