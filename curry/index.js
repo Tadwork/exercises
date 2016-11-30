@@ -2,17 +2,15 @@ module.exports = function curry(func){
 	return function(){
 		var curried = function(){
 			var ret,
-				argsArray =  Array.prototype.slice.call(arguments),
-				args = this.args.concat(argsArray);
-			// reset if we have all the arguments 
-			// and just return the computed value instead
-			if(args.length >= func.length ){
-				ret = func.apply(null,args);
-			}else{
+				argumentsAsAnArray =  Array.prototype.slice.call(arguments),
+				args = this.args.concat(argumentsAsAnArray);
 				ret = curried.bind({args: args});
-			}
+				ret.valueOf = function(){
+								return func.apply(null,args);
+							}
 			return ret;
 		}
+		// calling the curried function starts off with no args 
 		return curried.apply({args:[]},arguments);
 	}
 }
