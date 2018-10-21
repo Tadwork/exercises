@@ -7,6 +7,22 @@
 		{
 			"type": "node",
 			"request": "launch",
+			"name": "Mocha Tests",
+			"runtimeExecutable": "/Users/fri2258/.nvm/versions/node/v8.9.4/bin/node",
+			"program": "${workspaceFolder}/node_modules/mocha/bin/_mocha",
+			"args": [
+				"-u",
+				"tdd",
+				"--timeout",
+				"999999",
+				"--colors",
+				"${workspaceFolder}/merkle"
+			],
+			"internalConsoleOptions": "openOnSessionStart"
+		},
+		{
+			"type": "node",
+			"request": "launch",
 			"name": "Launch Program",
 			"program": "${workspaceRoot}/node_modules/mocha/bin/_mocha",
             "args": ["test.js", "--no-timeouts"],
