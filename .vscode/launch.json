@@ -16,7 +16,7 @@
 				"--timeout",
 				"999999",
 				"--colors",
-				"${workspaceFolder}/merkle"
+				"${workspaceFolder}/morse-code"
 			],
 			"internalConsoleOptions": "openOnSessionStart"
 		},
