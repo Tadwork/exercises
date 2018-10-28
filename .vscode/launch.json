@@ -16,7 +16,7 @@
 				"--timeout",
 				"999999",
 				"--colors",
-				"${workspaceFolder}/value"
+				"${workspaceFolder}/binary-search"
 			],
 			"internalConsoleOptions": "openOnSessionStart"
 		},
