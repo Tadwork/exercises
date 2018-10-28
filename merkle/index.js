@@ -15,11 +15,16 @@ class MerkleTree{
         return Math.pow(2,level) - 1
     }
     getNode(i){
-        if(i > this.tree.length - 1){
-            return this.tree[this.tree.length - 1]
-        }else{
+        if(i < this.tree.length ){
             return  this.tree[i]
         }
+    }
+    getRightNode(i){
+        let right = this.getNode(i+1)
+        if(!right){
+            right = this.getNode(i)
+        }
+        return right
     }
     getParent(i){
         return Math.floor( ((i -1)  /2))
@@ -32,11 +37,13 @@ class MerkleTree{
     computeVerificationChainFromLevel(level,start = this.getStartOfLevel(level) , end = (start *2) +1){
         const length = end - start
         if(length === 2){
-            const left = this.getNode(start)
-            const right = this.getNode(start + 1)
-            const hash = this.hasher(left+right)
-            const parent = this.getParent(start)
-            this.tree[parent] = hash
+            let left = this.getNode(start)
+            let right = this.getRightNode(start)
+            if(left && right){
+                const hash = this.hasher(left+right)
+                const parent = this.getParent(start)
+                this.tree[parent] = hash
+            }
         }else if(length > 2){
             const mid = start + (length / 2)
             this.computeVerificationChainFromLevel(level,start,mid)
@@ -47,7 +54,7 @@ class MerkleTree{
         const chain =[]
         const getVerificationPairAtLevel = (i,level)=>{
             if(i % 2 === 1){ // odd indices are on the left
-                chain.push((left)=> left + this.getNode(i+1))
+                chain.push((left)=>left + this.getRightNode(i))
             }else{ // a right node
                 chain.push((right)=> this.getNode(i-1) + right)
             }
