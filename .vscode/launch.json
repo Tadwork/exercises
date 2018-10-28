@@ -16,7 +16,7 @@
 				"--timeout",
 				"999999",
 				"--colors",
-				"${workspaceFolder}/binary-search"
+				"${workspaceFolder}/curry"
 			],
 			"internalConsoleOptions": "openOnSessionStart"
 		},
