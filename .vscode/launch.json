@@ -16,7 +16,7 @@
 				"--timeout",
 				"999999",
 				"--colors",
-				"${workspaceFolder}/middleware"
+				"${workspaceFolder}/morse-code"
 			],
 			"internalConsoleOptions": "openOnSessionStart"
 		},
