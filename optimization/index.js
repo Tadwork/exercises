@@ -55,4 +55,27 @@ function findGrantsCap(grantsArray, newBudget) {
     
     return mostEfficientWholeNumber + (leftAfterMostEfficientWholeFound / mostEfficient.countOfNumbersThatWereReduced )
   }
-  module.exports = findGrantsCap
+const reverse = (a,b)=>{
+    if(a < b) return 1
+    else if(a === b) return 0
+    else return -1
+}
+const sum = (a,b)=>a+b
+function findGrantsCapGreedy(grantsArray, newBudget){
+    const length = grantsArray.length
+    let totalWithoutSurplus = grantsArray.reduce(sum,0)
+    const sorted = grantsArray.sort(reverse)
+    sorted.push(0)
+    // loop throught the array from largest to
+    // smallest and see if that can be the cap
+    let grant
+    for(grant = 0; grant< grantsArray.length; grant++){
+        if(totalWithoutSurplus + (grantsArray[grant] * grant) > newBudget){
+          totalWithoutSurplus -= grantsArray[grant]
+        }else{
+          break
+        }
+    }
+    return (newBudget - totalWithoutSurplus) / grant
+}
+  module.exports = findGrantsCapGreedy
