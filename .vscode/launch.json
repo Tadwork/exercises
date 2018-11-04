@@ -23,7 +23,7 @@
 				"--timeout",
 				"999999",
 				"--colors",
-				"${workspaceFolder}/matches"
+				"${workspaceFolder}/async"
 			],
 			"internalConsoleOptions": "openOnSessionStart"
 		},
