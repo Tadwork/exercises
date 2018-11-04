@@ -16,7 +16,7 @@
 				"--timeout",
 				"999999",
 				"--colors",
-				"${workspaceFolder}/optimization"
+				"${workspaceFolder}/matches"
 			],
 			"internalConsoleOptions": "openOnSessionStart"
 		},
