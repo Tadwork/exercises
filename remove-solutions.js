@@ -3,10 +3,13 @@ const fs = require('fs'),
 
 var files=fs.readdirSync(__dirname);
 for(var i=0;i<files.length;i++){
-    var filename=path.join(startPath,files[i]);
+    var filename=path.join(__dirname,files[i]);
     var stat = fs.lstatSync(filename);
     if (stat.isDirectory()){
-        const index =path.resolve(dir, '/index.js');
-        index.unlink()
+        const index =path.join(filename, 'index.js');
+        if(fs.existsSync(index)){
+            fs.unlink(index)
+
+        }
     }
 };
