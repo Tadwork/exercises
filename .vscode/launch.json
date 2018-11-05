@@ -23,7 +23,7 @@
 				"--timeout",
 				"999999",
 				"--colors",
-				"${workspaceFolder}/jasmine-async"
+				"${workspaceFolder}/map"
 			],
 			"internalConsoleOptions": "openOnSessionStart"
 		},
