@@ -23,7 +23,7 @@
 				"--timeout",
 				"999999",
 				"--colors",
-				"${workspaceFolder}/flatten-thunk"
+				"${workspaceFolder}/invert-tree"
 			],
 			"internalConsoleOptions": "openOnSessionStart"
 		},
