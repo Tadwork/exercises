@@ -23,7 +23,7 @@
 				"--timeout",
 				"999999",
 				"--colors",
-				"${workspaceFolder}/invert-tree"
+				"${workspaceFolder}/jasmine-async"
 			],
 			"internalConsoleOptions": "openOnSessionStart"
 		},
