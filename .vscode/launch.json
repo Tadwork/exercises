@@ -23,7 +23,7 @@
 				"--timeout",
 				"999999",
 				"--colors",
-				"${workspaceFolder}/async"
+				"${workspaceFolder}/curry"
 			],
 			"internalConsoleOptions": "openOnSessionStart"
 		},
