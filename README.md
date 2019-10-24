@@ -1,3 +1,8 @@
+
+To reset all the solutions use:
+`find . -type f -not -path './node_modules/*' -name '*index.js*' -delete` 
+
+
 [![Gitter][gitter-image]][gitter-url]
 
 These are some basic (and advanced) coding challenges
