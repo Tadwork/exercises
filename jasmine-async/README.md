@@ -21,7 +21,7 @@ it("does something async", function() {
 });
 ```
 
-Assuming `it`, `runs`, and `waitFor` are available in scope, your job is to write a function thats usage is like this:
+Assuming `it`, `runs`, and `waitsFor` are available in scope, your job is to write a function thats usage is like this:
 
 ```js
 var itWill = require('./') // <- this is the file you make;
