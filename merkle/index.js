@@ -23,8 +23,13 @@ function merkle(array, hasher){
   //   return  ((2*(node)) + 1)
   // }
   function getHash(node){
-    let right_sibling = node+1
-    return hasher(merkle_tree[node] + merkle_tree[right_sibling])
+    if(merkle_tree[node]){
+      let right_sibling = node+1
+      if(!merkle_tree[right_sibling]){
+        right_sibling = node
+      }
+      return hasher(merkle_tree[node] + merkle_tree[right_sibling])
+    }
   }
   function getEnd(level){
     return getStart(level+1)
@@ -44,10 +49,6 @@ function merkle(array, hasher){
   const tree_size = ((leaf_start * 2) + 1)
   for(let i = leaf_start;i< tree_size ;i++) {
     let array_index = i - leaf_start
-    // fill the values left in the array with those from the last available value
-    if(array_index +1 > array.length){
-      array_index = array.length -1
-    }
     merkle_tree[i] = array[array_index]
   }
   buildVerificationForLevel(leafLevel)
@@ -59,7 +60,7 @@ function merkle(array, hasher){
    *
    *
    * @param {Number} value
-   * @returns {verificationObj || -1}
+   * @returns {verificationObj | -1}
    */
   function getVerification(value){
     const index = array.indexOf(value),
@@ -92,7 +93,11 @@ merkle.verify = function(value, root, verificationObj, hasher){
   for(let l = 0;l < maxLevels;l++){
     let combinedNodes
     if(node % 2 === 1 /* odd, so this is on the left*/){
-      combinedNodes = verificationValue + verificationObj.breadcrumbs[l]
+      if(verificationObj.breadcrumbs[l]){
+        combinedNodes = verificationValue + verificationObj.breadcrumbs[l]
+      }else{
+        combinedNodes = verificationValue + verificationValue
+      }
     }else{
       combinedNodes = verificationObj.breadcrumbs[l] + verificationValue
     }
