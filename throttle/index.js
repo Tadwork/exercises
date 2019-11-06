@@ -11,19 +11,16 @@ function throttle(func,duration){
     return function throttled_func(){
       //gets called with the later arguments
       args = arguments
-      if(called === 0){
+      called++
+      if(called === 1){
         func.apply(this,args)
+      }
+      else if (called === 2){
         setTimeout(()=>{
           called = 0
+          throttled_func.apply(this,args)
         },duration)
       }
-      // else if (called === 1){
-      //   setTimeout(()=>{
-      //     // will execute at least once more to make up for swallowed calls
-      //     throttled_func.apply(this,args)
-      //   },duration)
-      // }
-      called++
     }
 }
 module.exports = throttle
