@@ -3,6 +3,8 @@
  *
  * @param {Array<number>} coins
  * @param {number} amount
+ *
+ *
  */
 function coin_change(coins,amount){
   const coins_needed = [0]
@@ -23,12 +25,12 @@ function coin_change(coins,amount){
 
   // check for a number (not undefined or null)
   return Number.isInteger(coins_needed[amount]) ? coins_needed[amount] : -1
-  
+
 }
 /*
  simple approach is to get every possible combination of coins
  for [4,5] to get 8 that would be [4], [4,4], [4,5], [5],[5,4],[5,5]
-
+ RUns out of memory on Leetcode
 */
 function brute_force_coin_change(coins,amount){
   const sorted_denominations = coins.sort((a,b)=>a-b)
@@ -58,7 +60,7 @@ function brute_force_coin_change(coins,amount){
       }
     }
   }
-  const val = final_combinations.reduce((min,possible_solution)=>{
+  const val = amount > 0 ? final_combinations.reduce((min,possible_solution)=>{
     const total_coins = possible_solution.reduce((a,b)=>a+b,0)
     if(total_coins < min || min === -1){
       console.log(possible_solution)
@@ -66,20 +68,8 @@ function brute_force_coin_change(coins,amount){
     }else{
       return min
     }
-  },-1)
+  },-1) : 0
   return val
 }
 module.exports = coin_change
 
-function debug(coins_needed,amount)
-{
-
-  console.log(`{`)
-
-  for(let a = 0;a <= amount;++a){
-    if(coins_needed[a]){
-      console.log(`   ${a}:${coins_needed[a]}`)
-    }
-  }
-  console.log(`}`)
-}
