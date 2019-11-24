@@ -6,20 +6,24 @@
  * @returns
  */
 function throttle(func,duration){
-    let called = 0,
-        args
+    let lastCalled,
+        args,
+        timeout
     return function throttled_func(){
       //gets called with the later arguments
       args = arguments
-      called++
-      if(called === 1){
+      const time = new Date()
+      const elapsedTime = time - lastCalled
+      if(!lastCalled || (elapsedTime > duration && !timeout)){
+        lastCalled = time
         func.apply(this,args)
-      }
-      else if (called === 2){
-        setTimeout(()=>{
-          called = 0
-          throttled_func.apply(this,args)
-        },duration)
+      }else if(!timeout){
+        // execute at least once more to make up for swallowed calls
+        timeout = setTimeout(()=>{
+          lastCalled = time
+          func.apply(this,args)
+          timeout = null
+        },duration )
       }
     }
 }

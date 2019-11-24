@@ -47,6 +47,20 @@ describe('throttle', function() {
     clock.tick(100);
   });
 
+  it("will execute the appropriate amount of time after the first call", function(done) {
+    var called = 0;
+    var throttled = throttle(function() {
+      called++;
+    }, 10);
+    throttled();
+    setTimeout(throttled, 5);
+    setTimeout(throttled, 1);
+    setTimeout(function() {
+      assert.equal(called, 2);
+      done();
+    }, 15);
+    clock.tick(100);
+  });
   it('will execute every threshold ms', function(done) {
     var startTime = new Date();
     var calledTimes = [];
