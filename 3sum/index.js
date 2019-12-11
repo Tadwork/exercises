@@ -1,3 +1,51 @@
+/**
+ *
+ *
+ * @param {number[]} numbers
+ */
+function three_sum_fast(numbers){
+    const length = numbers.length,
+          result = []
+    // must have at least 3 numbers for 3sum
+    if(length < 3) return result
+    // sort in place O(n log n)
+    numbers.sort((a,b)=>a-b)
+
+    let left = 0,
+        right = length -1,
+        mid = left +1
+    const move_right = ()=>{
+      while(numbers[right] === numbers[right-1])right--
+      right--
+    }
+    const move_mid = ()=>{
+      while(numbers[mid] === numbers[mid+1])mid++
+      mid++
+    }
+    while(
+      // at least 2 more numbers to sum until the end
+      left < length-2
+      // at least one number must be negative to sum to 0
+      && numbers[left] <= 0
+      ){
+        const sum = numbers[left] + numbers[mid] + numbers[right]
+        if(sum === 0){
+              result.push([numbers[left], numbers[mid], numbers[right]])
+              move_right()
+              move_mid()
+        }else if(sum > 0) move_right()
+        else if(sum < 0) move_mid()
+        // finished checking all the middle numbers, move the left one number over
+        if(mid >= right){
+          while(numbers[left] === numbers[left+1])left++
+          left++
+          mid=left + 1
+          right = length - 1
+        }
+    }
+    return result
+}
+
 function binary_search(arr, start, end, val) {
   if (end >= start) {
     const mid = start + Math.floor((end - start) / 2);
@@ -43,8 +91,7 @@ function threeSum(arr) {
           if (complement >= arr[sec_ptr]) {
             // if the value exists (start looking from the second pointer until the end of the sorted array)
             if (
-              binary_search(arr, sec_ptr + 1, arr.length - 1, complement) !==
-              null
+              binary_search(arr, sec_ptr + 1, arr.length - 1, complement) !== null
             ) {
               // add it to the top of the return values
               ret.push([arr[first_ptr], arr[sec_ptr], complement]);
@@ -57,4 +104,4 @@ function threeSum(arr) {
 
   return ret;
 }
-module.exports = threeSum;
+module.exports = three_sum_fast;
