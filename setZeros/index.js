@@ -12,8 +12,12 @@ function setZeros(matrix){
   for(let r = 0; r < rows; r++){
     for(let c = 0; c < cols; c++){
       if(matrix[r][c] === 0){
-        matrix[0][c] = matrix[r][0] = null
-        if(r === 0)zero_on_first_row = true
+        matrix[0][c] = null
+        if(r === 0){
+          zero_on_first_row = true
+        }else{
+          matrix[r][0] = null
+        }
       }
     }
   }
