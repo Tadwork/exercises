@@ -51,4 +51,18 @@ describe('set zeros', function() {
   ]
     assert.deepEqual(result,expected);
   });
+
+  it('row and column same line', function() {
+    const matrix = [[0,1,2,0],[3,4,5,2],[1,3,1,5]]
+    const result = set_zeros(matrix);
+    const expected = [[0,0,0,0],[0,4,5,0],[0,3,1,0]]
+    assert.deepEqual(result,expected);
+  });
+
+  it('zero and bottom left', function() {
+    const matrix = [[1,1,1],[0,1,2]]
+    const result = set_zeros(matrix);
+    const expected = [[0,1,1],[0,0,0]]
+    assert.deepEqual(result,expected);
+  });
 });
